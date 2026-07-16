@@ -17,29 +17,98 @@
     padding:20px;
     overflow-x:hidden;
   }
-  /* BACKGROUND ANIMASI GRID HACKER */
   body::before{
     content:"";position:fixed;top:0;left:0;width:100%;height:100%;
-    background: 
-      linear-gradient(rgba(6,182,212,0.1) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(6,182,212,0.1) 1px, transparent 1px);
-    background-size: 40px 40px;
-    animation: gridMove 20s linear infinite;
-    z-index:-2;
+    background: linear-gradient(rgba(6,182,212,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.1) 1px, transparent 1px);
+    background-size: 40px 40px; animation: gridMove 20s linear infinite; z-index:-2;
   }
   @keyframes gridMove{0%{transform:translate(0,0)}100%{transform:translate(40px,40px)}}
-  
-  /* GARIS SCANNING */
   body::after{
     content:"";position:fixed;top:0;left:0;width:100%;height:2px;
     background:linear-gradient(90deg,transparent,#06b6d4,#06b6d4,transparent);
-    box-shadow:0 0 20px #06b6d4;
-    animation: scan 3s linear infinite;
-    z-index:-1;
+    box-shadow:0 0 20px #06b6d4; animation: scan 3s linear infinite; z-index:-1;
   }
   @keyframes scan{0%{top:0}100%{top:100vh}}
-
   .container{max-width:500px;margin:0 auto;position:relative}
   .header{text-align:center;margin-bottom:30px}
   .header h1{
-    font-family:'
+    font-family:'Orbitron',sans-serif; font-size:28px;font-weight:700;
+    background:linear-gradient(90deg,#06b6d4,#22d3ee,#06b6d4); background-size:200% auto;
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; animation: turbo 2s linear infinite;
+    text-shadow:0 0 20px rgba(6,182,212,0.5);
+  }
+  @keyframes turbo{0%{background-position:0%}100%{background-position:200%}}
+  .header .tag{color:#06b6d4;font-size:12px;letter-spacing:2px}
+  .jam{font-size:18px;font-weight:600;color:#22d3ee;margin-top:8px}
+  .card{
+    background: rgba(3,15,25,0.6); backdrop-filter: blur(15px); border: 1px solid rgba(6,182,212,0.4);
+    padding: 20px; border-radius: 20px; margin-bottom:20px; box-shadow: 0 0 30px rgba(6,182,212,0.2);
+  }
+  .card h3{color:#22d3ee;font-size:15px;margin-bottom:15px;font-family:'Orbitron',sans-serif}
+  .btn{
+    display:flex;align-items:center;gap:10px; background:linear-gradient(90deg,#0891b2,#06b6d4);
+    color:white;text-decoration:none;padding:14px; border-radius:12px;font-weight:600;margin:10px 0;
+    transition:0.3s;border:1px solid rgba(6,182,212,0.3); cursor:pointer;
+  }
+  .btn:hover{transform:translateY(-3px);box-shadow:0 0 25px rgba(6,182,212,0.6)}
+  .btn-purple{background:linear-gradient(90deg,#6366f1,#8b5cf6)}
+  .btn-orange{background:linear-gradient(90deg,#f97316,#fb923c)}
+  .footer{font-size:11px;color:#06b6d4;text-align:center;margin-top:20px;opacity:0.7}
+  .notif{color:#f97316; font-size:12px; text-align:center; margin-bottom:15px; animation:blink 1s infinite}
+  @keyframes blink{50%{opacity:0}}
+</style>
+</head>
+<body>
+  <audio id="access" src="https://www.soundjay.com/misc/sounds/access-granted-1.mp3" preload="auto"></audio>
+  <audio id="beep" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio>
+
+  <div class="container">
+    <div class="header">
+      <h1>ADMIN LANA TURBO</h1>
+      <div class="tag">// HACKER PANEL v3.1 //</div>
+      <div class="jam" id="jam"></div>
+    </div>
+
+    <div class="card">
+      <div class="notif" id="notif">TAP LAYAR 1X UNTUK AKTIFKAN SUARA</div>
+      <h3>[ UPLOAD & FILE ]</h3>
+      <a href="https://sfile.co/user/v1/uploads" target="_blank" class="btn" onclick="playSound('beep')">☁️ UPLOAD CONFIG</a>
+      <a href="https://sfile.co" target="_blank" class="btn btn-orange" onclick="playSound('beep')">📁 DASHBOARD SFILE</a>
+    </div>
+
+    <div class="card">
+      <h3>[ PELANGGAN ]</h3>
+      <a href="https://wa.me/6285625860972" target="_blank" class="btn btn-purple" onclick="playSound('beep')">💬 WHATSAPP</a>
+      <a href="index.html" class="btn btn-purple" onclick="playSound('beep')">🌐 WEB PELANGGAN</a>
+    </div>
+
+    <div class="footer">SYSTEM ONLINE // 2026</div>
+  </div>
+
+<script>
+  let soundActive = false;
+  
+  // AKTIFKAN SUARA PAS TAP PERTAMA
+  document.body.addEventListener('click', () => {
+    if(!soundActive){
+      document.getElementById('access').play().catch(()=>{});
+      document.getElementById('notif').style.display = 'none';
+      soundActive = true;
+    }
+  }, {once: true});
+
+  function playSound(id){
+    if(soundActive){
+      document.getElementById(id).currentTime = 0;
+      document.getElementById(id).play();
+    }
+  }
+
+  function updateJam(){
+    const now = new Date();
+    document.getElementById('jam').innerText = now.toLocaleTimeString('id-ID');
+  }
+  setInterval(updateJam, 1000); updateJam();
+</script>
+</body>
+</html>
