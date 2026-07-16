@@ -1,0 +1,15 @@
+{
+  "name": "Admin Lana",
+  "short_name": "Admin Lana",
+  "start_url": "admin.html",
+  "display": "standalone",
+  "background_color": "#050510",
+  "theme_color": "#16a34a",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
