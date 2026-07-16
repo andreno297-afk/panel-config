@@ -7,6 +7,7 @@
 <title>Admin Lana TURBO</title>
 <link rel="manifest" href="manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
   body{
@@ -15,89 +16,63 @@
     color:#e5e5e5;
     min-height:100vh;
     padding:20px;
-    overflow:hidden;
+    overflow-x:hidden;
     position:relative;
   }
-  
-  /* ROKET TERBANG */
-  .rocket{
-    position:fixed;bottom:-100px;font-size:30px;
-    animation: fly 8s linear infinite;
-    filter: drop-shadow(0 0 15px #06b6d4);
-    z-index:-1;
-  }
-  @keyframes fly{
-    0%{transform:translateY(0) rotate(-10deg); opacity:0}
-    10%{opacity:1}
-    90%{opacity:1}
-    100%{transform:translateY(-120vh) rotate(10deg); opacity:0}
-  }
-  .fire{
-    position:absolute;bottom:-15px;left:50%;transform:translateX(-50%);
-    width:10px;height:20px;
-    background:linear-gradient(#f97316,#06b6d4,transparent);
-    border-radius:50% 50% 0 0;
-    animation:flicker 0.2s infinite;
-  }
-  @keyframes flicker{50%{height:30px;opacity:0.7}}
-  
-  /* BACKGROUND ANIMASI GRID HACKER */
-  body::before{
-    content:"";position:fixed;top:0;left:0;width:100%;height:100%;
-    background: linear-gradient(rgba(6,182,212,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.1) 1px, transparent 1px);
-    background-size: 40px 40px; animation: gridMove 20s linear infinite; z-index:-2;
-  }
+
+.rocket{position:fixed;bottom:-100px;font-size:30px;animation: fly 8s linear infinite;filter: drop-shadow(0 0 15px #06b6d4);z-index:-1;}
+  @keyframes fly{0%{transform:translateY(0) rotate(-10deg); opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-120vh) rotate(10deg); opacity:0}}
+.fire{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:15px;height:30px;background:linear-gradient(#ff4400,#f97316,#06b6d4,transparent);border-radius:50% 50% 0 0;animation:flicker 0.1s infinite;filter: blur(2px);}
+  @keyframes flicker{50%{height:40px;opacity:0.7}}
+  body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;background: linear-gradient(rgba(6,182,212,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.1) 1px, transparent 1px);background-size: 40px 40px; animation: gridMove 20s linear infinite; z-index:-2;}
   @keyframes gridMove{0%{transform:translate(0,0)}100%{transform:translate(40px,40px)}}
-  
-  /* GARIS SCANNING */
-  body::after{
-    content:"";position:fixed;top:0;left:0;width:100%;height:2px;
-    background:linear-gradient(90deg,transparent,#06b6d4,#06b6d4,transparent);
-    box-shadow:0 0 20px #06b6d4; animation: scan 3s linear infinite; z-index:-1;
-  }
+  body::after{content:"";position:fixed;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,#06b6d4,#06b6d4,transparent);box-shadow:0 0 20px #06b6d4; animation: scan 3s linear infinite; z-index:-1;}
   @keyframes scan{0%{top:0}100%{top:100vh}}
 
-  .container{max-width:500px;margin:0 auto;position:relative;z-index:10}
-  .header{text-align:center;margin-bottom:30px}
-  .header h1{
-    font-family:'Orbitron',sans-serif; font-size:28px;font-weight:900;
-    background:linear-gradient(90deg,#06b6d4,#22d3ee,#06b6d4); background-size:200% auto;
-    -webkit-background-clip:text; -webkit-text-fill-color:transparent; animation: turbo 2s linear infinite;
-    text-shadow:0 0 20px rgba(6,182,212,0.5);
-  }
+.container{max-width:500px;margin:0 auto;position:relative;z-index:10}
+.header{text-align:center;margin-bottom:30px}
+.header h1{font-family:'Orbitron',sans-serif; font-size:28px;font-weight:900;background:linear-gradient(90deg,#06b6d4,#22d3ee,#06b6d4); background-size:200% auto;-webkit-background-clip:text; -webkit-text-fill-color:transparent; animation: turbo 2s linear infinite;text-shadow:0 0 20px rgba(6,182,212,0.5);}
   @keyframes turbo{0%{background-position:0%}100%{background-position:200%}}
-  .header .tag{color:#06b6d4;font-size:12px;letter-spacing:2px}
-  .jam{font-size:18px;font-weight:600;color:#22d3ee;margin-top:8px}
+.header.tag{color:#06b6d4;font-size:12px;letter-spacing:2px}
+.jam{font-size:18px;font-weight:600;color:#22d3ee;margin-top:8px}
 
-  .card{
-    background: rgba(3,15,25,0.7); backdrop-filter: blur(15px); border: 1px solid rgba(6,182,212,0.4);
-    padding: 20px; border-radius: 20px; margin-bottom:20px; box-shadow: 0 0 30px rgba(6,182,212,0.2);
-  }
-  .card h3{color:#22d3ee;font-size:15px;margin-bottom:15px;font-family:'Orbitron',sans-serif}
-  .btn{
-    display:flex;align-items:center;gap:10px; background:linear-gradient(90deg,#0891b2,#06b6d4);
-    color:white;text-decoration:none;padding:14px; border-radius:12px;font-weight:600;margin:10px 0;
-    transition:0.3s;border:1px solid rgba(6,182,212,0.3); cursor:pointer;
-  }
-  .btn:hover{transform:translateY(-3px);box-shadow:0 0 25px rgba(6,182,212,0.6)}
-  .btn-purple{background:linear-gradient(90deg,#6366f1,#8b5cf6)}
-  .btn-orange{background:linear-gradient(90deg,#f97316,#fb923c)}
-  .footer{font-size:11px;color:#06b6d4;text-align:center;margin-top:20px;opacity:0.7}
+.card{background: rgba(3,15,25,0.7); backdrop-filter: blur(15px); border: 1px solid rgba(6,182,212,0.4);padding: 20px; border-radius: 20px; margin-bottom:20px; box-shadow: 0 0 30px rgba(6,182,212,0.2);}
+.card h3{color:#22d3ee;font-size:15px;margin-bottom:15px;font-family:'Orbitron',sans-serif}
+.btn{display:flex;align-items:center;gap:10px; background:linear-gradient(90deg,#0891b2,#06b6d4);color:white;text-decoration:none;padding:14px; border-radius:12px;font-weight:600;margin:10px 0;transition:0.3s;border:1px solid rgba(6,182,212,0.3); cursor:pointer;border:none;width:100%;justify-content:center}
+.btn:hover{transform:translateY(-3px);box-shadow:0 0 25px rgba(6,182,212,0.6)}
+.btn-purple{background:linear-gradient(90deg,#6366f1,#8b5cf6)}
+.btn-orange{background:linear-gradient(90deg,#f97316,#fb923c)}
+.btn-green{background:linear-gradient(90deg,#22c55e,#4ade80)}
+.btn-pink{background:linear-gradient(90deg,#ec4899,#f472b6)}
+.btn-red{background:linear-gradient(90deg,#ef4444,#f87171)}
+.btn-yellow{background:linear-gradient(90deg,#eab308,#facc15)}
+.btn-wa{background:linear-gradient(90deg,#25D366,#20BA5A)}
+
+.input-group{display:flex;gap:10px;margin-bottom:12px}
+.input-group input,.input-group select{flex:1;padding:12px;background:rgba(0,0,0,0.4);border:1px solid rgba(6,182,212,0.3);border-radius:10px;color:#fff;font-family:'Poppins';outline:none}
+.input-group input:focus{border-color:#06b6d4;box-shadow:0 0 10px rgba(6,182,212,0.5)}
+.omset-list{max-height:250px;overflow-y:auto;margin-top:15px}
+.omset-item{display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;margin-bottom:8px;border-left:3px solid #06b6d4}
+.omset-item small{opacity:0.7;font-size:11px}
+.total-box{background:linear-gradient(90deg,#22c55e,#4ade80);padding:15px;border-radius:12px;text-align:center;margin-top:15px}
+.total-box.label{font-size:12px;opacity:0.9}
+.total-box.total{font-size:24px;font-weight:900;font-family:'Orbitron'}
+  canvas{background:rgba(0,0,0,0.3);border-radius:12px;padding:10px;margin-top:10px}
+.footer{font-size:11px;color:#06b6d4;text-align:center;margin-top:20px;opacity:0.7}
 </style>
 </head>
 <body>
   <!-- ROKET -->
   <div class="rocket" style="left:10%; animation-delay:0s">🚀<div class="fire"></div></div>
-  <div class="rocket" style="left:80%; animation-delay:4s">🚀<div class="fire"></div></div>
-  <div class="rocket" style="left:45%; animation-delay:2s">🚀<div class="fire"></div></div>
+  <div class="rocket" style="left:45%; animation-delay:3s">🚀<div class="fire"></div></div>
+  <div class="rocket" style="left:85%; animation-delay:6s">🚀<div class="fire"></div></div>
 
-  <!-- AUDIO -->
   <audio id="beep" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio>
 
   <div class="container">
     <div class="header">
       <h1>ADMIN LANA TURBO</h1>
-      <div class="tag">// HACKER PANEL v4.1 ROCKET //</div>
+      <div class="tag">// HACKER PANEL v8.0 CRM //</div>
       <div class="jam" id="jam"></div>
     </div>
 
@@ -105,6 +80,54 @@
       <h3>[ UPLOAD & FILE ]</h3>
       <a href="https://sfile.co/user/v1/uploads" target="_blank" class="btn" onclick="playSound()">☁️ UPLOAD CONFIG</a>
       <a href="https://sfile.co" target="_blank" class="btn btn-orange" onclick="playSound()">📁 DASHBOARD SFILE</a>
+    </div>
+
+    <div class="card">
+      <h3>[ TOKO & KEDAI ]</h3>
+      <a href="https://kedaissh.com/dashboard" target="_blank" class="btn btn-green" onclick="playSound()">🖥️ KEDAI SSH</a>
+      <a href="https://tokovpn.com/" target="_blank" class="btn btn-pink" onclick="playSound()">🔐 TOKO VPN</a>
+      <a href="https://www.nevpn.my.id/" target="_blank" class="btn btn-red" onclick="playSound()">🛒 NS STORE</a>
+    </div>
+
+    <div class="card">
+      <h3>[ CATAT OMSET HARIAN ]</h3>
+      <div class="input-group">
+        <select id="produk">
+          <option value="SSH">SSH</option>
+          <option value="VPN">VPN</option>
+          <option value="NS">NS Store</option>
+          <option value="Lainnya">Lainnya</option>
+        </select>
+        <input type="number" id="harga" placeholder="Harga Rp">
+      </div>
+      <button class="btn btn-yellow" onclick="tambahOmset(); playSound()">➕ TAMBAH OMSET</button>
+      <button class="btn btn-red" onclick="resetOmset(); playSound()">🗑️ RESET SEMUA DATA</button>
+
+      <div class="omset-list" id="listOmset"></div>
+
+      <div class="total-box">
+        <div class="label">TOTAL OMSET HARI INI</div>
+        <div class="total" id="totalOmset">Rp 0</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>[ CRM PELANGGAN + WA BLAST ]</h3>
+      <div class="input-group">
+        <input type="text" id="namaPel" placeholder="Nama Pelanggan">
+        <input type="text" id="waPel" placeholder="08xxxxxxxx">
+      </div>
+      <div class="input-group">
+        <input type="text" id="paketPel" placeholder="Paket: VPN 30 Hari">
+        <input type="date" id="jatuhTempo">
+      </div>
+      <button class="btn btn-green" onclick="tambahPelanggan(); playSound()">➕ SIMPAN PELANGGAN</button>
+      <div class="omset-list" id="listPelanggan"></div>
+    </div>
+
+    <div class="card">
+      <h3>[ GRAFIK OMSET 7 HARI ]</h3>
+      <canvas id="grafikOmset"></canvas>
     </div>
 
     <div class="card">
@@ -117,18 +140,144 @@
   </div>
 
 <script>
-  // SUARA BEEP
   function playSound(){
     document.getElementById('beep').currentTime = 0;
     document.getElementById('beep').play().catch(()=>{});
   }
-
-  // JAM
   function updateJam(){
     const now = new Date();
     document.getElementById('jam').innerText = now.toLocaleTimeString('id-ID');
   }
   setInterval(updateJam, 1000); updateJam();
+
+  // SISTEM OMSET
+  let dataOmset = JSON.parse(localStorage.getItem('omsetLana')) || [];
+  let dataPel = JSON.parse(localStorage.getItem('pelangganLana')) || [];
+  let chart;
+
+  function tambahOmset(){
+    const produk = document.getElementById('produk').value;
+    const harga = parseInt(document.getElementById('harga').value);
+    if(!harga || harga <= 0) return alert('Masukkan harga dulu!');
+
+    const hariIni = new Date().toISOString().split('T')[0];
+    dataOmset.push({produk, harga, tanggal: hariIni, waktu: new Date().toLocaleTimeString('id-ID')});
+    localStorage.setItem('omsetLana', JSON.stringify(dataOmset));
+    document.getElementById('harga').value = '';
+    tampilkanOmset();
+    updateGrafik();
+  }
+
+  function tampilkanOmset(){
+    const list = document.getElementById('listOmset');
+    const hariIni = new Date().toISOString().split('T')[0];
+    const dataHariIni = dataOmset.filter(d => d.tanggal === hariIni);
+    const total = dataHariIni.reduce((sum, item) => sum + item.harga, 0);
+
+    list.innerHTML = dataHariIni.map((item) => `
+      <div class="omset-item">
+        <div>${item.produk} - ${item.waktu}</div>
+        <div>Rp ${item.harga.toLocaleString('id-ID')}</div>
+      </div>
+    `).join('');
+
+    document.getElementById('totalOmset').innerText = 'Rp ' + total.toLocaleString('id-ID');
+  }
+
+  function resetOmset(){
+    if(confirm('Yakin hapus SEMUA data omset?')){
+      dataOmset = [];
+      localStorage.setItem('omsetLana', JSON.stringify(dataOmset));
+      tampilkanOmset();
+      updateGrafik();
+    }
+  }
+
+  // SISTEM CRM + WA
+  function tambahPelanggan(){
+    const nama = document.getElementById('namaPel').value;
+    const wa = document.getElementById('waPel').value;
+    const paket = document.getElementById('paketPel').value;
+    const jt = document.getElementById('jatuhTempo').value;
+    if(!nama ||!wa) return alert('Isi nama & WA dulu!');
+
+    dataPel.push({nama, wa, paket, jt});
+    localStorage.setItem('pelangganLana', JSON.stringify(dataPel));
+
+    kirimWA(wa, nama, paket, jt); // langsung buka WA
+    document.getElementById('namaPel').value = '';
+    document.getElementById('waPel').value = '';
+    document.getElementById('paketPel').value = '';
+    tampilPelanggan();
+  }
+
+  function kirimWA(wa, nama, paket, jt){
+    const waFix = wa.startsWith('0')? '62' + wa.substring(1) : wa;
+    const pesan = `Halo ${nama} 🙏\n\nIni pengingat tagihan ${paket} dari Admin Lana.\nJatuh tempo: ${jt}\n\nTerima kasih`;
+    window.open(`https://wa.me/${waFix}?text=${encodeURIComponent(pesan)}`, '_blank');
+  }
+
+  function hapusPelanggan(index){
+    if(confirm('Hapus pelanggan ini?')){
+      dataPel.splice(index, 1);
+      localStorage.setItem('pelangganLana', JSON.stringify(dataPel));
+      tampilPelanggan();
+    }
+  }
+
+  function tampilPelanggan(){
+    document.getElementById('listPelanggan').innerHTML = dataPel.map((p, i) => `
+      <div class="omset-item">
+        <div>
+          <b>${p.nama}</b><br>
+          <small>${p.paket} | JT: ${p.jt}</small>
+        </div>
+        <div style="display:flex;gap:5px">
+          <button class="btn btn-wa" style="padding:8px 12px;font-size:12px" onclick="kirimWA('${p.wa}','${p.nama}','${p.paket}','${p.jt}'); playSound()">WA</button>
+          <button class="btn btn-red" style="padding:8px 12px;font-size:12px" onclick="hapusPelanggan(${i})">X</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // SISTEM GRAFIK
+  function updateGrafik(){
+    const ctx = document.getElementById('grafikOmset').getContext('2d');
+    const labels = [];
+    const data = [];
+
+    for(let i = 6; i >= 0; i--){
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      const tgl = d.toISOString().split('T')[0];
+      labels.push(d.toLocaleDateString('id-ID', {weekday: 'short'}));
+      const totalHari = dataOmset.filter(x => x.tanggal === tgl).reduce((sum, item) => sum + item.harga, 0);
+      data.push(totalHari);
+    }
+
+    if(chart) chart.destroy();
+    chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Omset Rp',
+          data: data,
+          backgroundColor: 'rgba(6, 182, 212, 0.6)',
+          borderColor: '#06b6d4',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        scales: {y: {beginAtZero: true, ticks: {color: '#22d3ee'}}, x: {ticks: {color: '#22d3ee'}}},
+        plugins: {legend: {labels: {color: '#22d3ee'}}}
+      }
+    });
+  }
+
+  tampilkanOmset();
+  tampilPelanggan();
+  updateGrafik();
 </script>
 </body>
 </html>
