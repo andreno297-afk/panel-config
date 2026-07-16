@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lana Jahat | VPN Premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family: 'Poppins', sans-serif;
+    background: #050510;
+    color:#e5e5e5;
+    min-height:100vh;
+    display:flex;justify-content:center;align-items:center;
+    overflow:hidden;
+    background: radial-gradient(circle at 20% 20%, #1e1b4b 0%, #050510 50%);
+  }
+  .glow{
+    position:absolute;width:400px;height:400px;
+    background: radial-gradient(circle, #8b5cf6 0%, transparent 70%);
+    filter: blur(100px);z-index:0;animation:pulse 4s infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:0.4}50%{opacity:0.8}}
+  .card{
+    position:relative;z-index:1;
+    background: rgba(20,20,30,0.5);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(139,92,246,0.3);
+    padding: 45px 35px;
+    border-radius: 25px;
+    text-align: center;
+    max-width: 420px;width: 90%;
+    box-shadow: 0 0 40px rgba(139,92,246,0.2);
+  }
+  .avatar{
+    width:130px;height:130px;border-radius:50%;
+    border:3px solid #8b5cf6;margin-bottom:20px;
+    background:linear-gradient(45deg,#8b5cf6,#6366f1);
+    display:flex;align-items:center;justify-content:center;
+    font-size:40px;font-weight:700;color:white;
+    box-shadow:0 0 25px rgba(139,92,246,0.6);
+  }
+  h1{font-size:28px;font-weight:700;color:#a78bfa;margin-bottom:8px}
+  .job{color:#9ca3af;font-size:14px;margin-bottom:20px}
+  .bio{font-size:15px;line-height:1.7;color:#d1d5db;margin-bottom:30px}
+  .btn{
+    display:block;background:linear-gradient(90deg,#8b5cf6,#6366f1);
+    color:white;text-decoration:none;padding:14px;
+    border-radius:14px;font-weight:600;margin:12px 0;
+    transition:0.3s;
+  }
+  .btn:hover{transform:translateY(-3px);box-shadow:0 10px 25px rgba(139,92,246,0.4)}
+  .sosmed{margin-top:25px;display:flex;justify-content:center;gap:20px}
+  .sosmed a{color:#9ca3af;font-size:22px;text-decoration:none;transition:0.3s}
+  .sosmed a:hover{color:#8b5cf6;transform:scale(1.2)}
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="card">
+    <div class="avatar">LJ</div>
+    <h1>Lana Jahat</h1>
+    <p class="job">VPN Premium Provider</p>
+    <p class="bio">
+      Jual akun VPN Premium murah, cepat, dan stabil. 
+      Support 24 jam. Trusted 100% 🚀
+    </p>
+
+    <a href="https://wa.me/6285625860972" target="_blank" class="btn">💬 Order via WhatsApp</a>
+    <a href="https://github.com/lanarizVPN" target="_blank" class="btn">📂 Cek Config & Tutorial</a>
+    <a href="mailto:lanarizVPN@gmail.com" class="btn">✉️ Email Support</a>
+
+    <div class="sosmed">
+      <a href="https://github.com/lanarizVPN">Github</a>
+      <a href="#">IG</a>
+      <a href="#">YT</a>
+    </div>
+  </div>
+</body>
+</html>
