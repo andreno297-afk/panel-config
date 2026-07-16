@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#06b6d4">
 <title>Admin Lana TURBO</title>
 <link rel="manifest" href="manifest.json">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
   body{
@@ -15,31 +15,50 @@
     color:#e5e5e5;
     min-height:100vh;
     padding:20px;
-    overflow-x:hidden;
+    overflow:hidden;
   }
+  /* LOADING SCREEN */
+  #loader{
+    position:fixed;top:0;left:0;width:100%;height:100%;
+    background:#020a10;z-index:9999;display:flex;flex-direction:column;
+    justify-content:center;align-items:center;
+  }
+  #loader h2{font-family:'Orbitron',sans-serif;color:#06b6d4;font-size:20px;margin-bottom:15px}
+  .bar{width:80%;height:4px;background:rgba(6,182,212,0.2);border-radius:10px;overflow:hidden}
+  .fill{height:100%;width:0%;background:#06b6d4;box-shadow:0 0 15px #06b6d4;animation:load 2.5s forwards}
+  @keyframes load{to{width:100%}}
+  .percent{color:#22d3ee;margin-top:10px;font-family:'Orbitron',sans-serif}
+  
+  /* BACKGROUND ANIMASI GRID HACKER */
   body::before{
     content:"";position:fixed;top:0;left:0;width:100%;height:100%;
     background: linear-gradient(rgba(6,182,212,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.1) 1px, transparent 1px);
     background-size: 40px 40px; animation: gridMove 20s linear infinite; z-index:-2;
   }
   @keyframes gridMove{0%{transform:translate(0,0)}100%{transform:translate(40px,40px)}}
+  
+  /* GARIS SCANNING */
   body::after{
     content:"";position:fixed;top:0;left:0;width:100%;height:2px;
     background:linear-gradient(90deg,transparent,#06b6d4,#06b6d4,transparent);
     box-shadow:0 0 20px #06b6d4; animation: scan 3s linear infinite; z-index:-1;
   }
   @keyframes scan{0%{top:0}100%{top:100vh}}
-  .container{max-width:500px;margin:0 auto;position:relative}
+
+  .container{max-width:500px;margin:0 auto;position:relative;display:none}
   .header{text-align:center;margin-bottom:30px}
   .header h1{
-    font-family:'Orbitron',sans-serif; font-size:28px;font-weight:700;
+    font-family:'Orbitron',sans-serif; font-size:28px;font-weight:900;
     background:linear-gradient(90deg,#06b6d4,#22d3ee,#06b6d4); background-size:200% auto;
     -webkit-background-clip:text; -webkit-text-fill-color:transparent; animation: turbo 2s linear infinite;
     text-shadow:0 0 20px rgba(6,182,212,0.5);
   }
   @keyframes turbo{0%{background-position:0%}100%{background-position:200%}}
+  .breach{color:#f97316;font-size:12px;letter-spacing:3px;animation:blink 0.5s 3}
+  @keyframes blink{50%{opacity:0}}
   .header .tag{color:#06b6d4;font-size:12px;letter-spacing:2px}
   .jam{font-size:18px;font-weight:600;color:#22d3ee;margin-top:8px}
+
   .card{
     background: rgba(3,15,25,0.6); backdrop-filter: blur(15px); border: 1px solid rgba(6,182,212,0.4);
     padding: 20px; border-radius: 20px; margin-bottom:20px; box-shadow: 0 0 30px rgba(6,182,212,0.2);
@@ -54,23 +73,29 @@
   .btn-purple{background:linear-gradient(90deg,#6366f1,#8b5cf6)}
   .btn-orange{background:linear-gradient(90deg,#f97316,#fb923c)}
   .footer{font-size:11px;color:#06b6d4;text-align:center;margin-top:20px;opacity:0.7}
-  .notif{color:#f97316; font-size:12px; text-align:center; margin-bottom:15px; animation:blink 1s infinite}
-  @keyframes blink{50%{opacity:0}}
 </style>
 </head>
 <body>
+  <!-- LOADING -->
+  <div id="loader">
+    <h2>SYSTEM BOOTING...</h2>
+    <div class="bar"><div class="fill"></div></div>
+    <div class="percent" id="percent">0%</div>
+  </div>
+
+  <!-- AUDIO -->
   <audio id="access" src="https://www.soundjay.com/misc/sounds/access-granted-1.mp3" preload="auto"></audio>
   <audio id="beep" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio>
 
-  <div class="container">
+  <div class="container" id="main">
     <div class="header">
       <h1>ADMIN LANA TURBO</h1>
-      <div class="tag">// HACKER PANEL v3.1 //</div>
+      <div class="breach" id="breach">// SYSTEM BREACHED //</div>
+      <div class="tag">// HACKER PANEL v4.0 //</div>
       <div class="jam" id="jam"></div>
     </div>
 
     <div class="card">
-      <div class="notif" id="notif">TAP LAYAR 1X UNTUK AKTIFKAN SUARA</div>
       <h3>[ UPLOAD & FILE ]</h3>
       <a href="https://sfile.co/user/v1/uploads" target="_blank" class="btn" onclick="playSound('beep')">☁️ UPLOAD CONFIG</a>
       <a href="https://sfile.co" target="_blank" class="btn btn-orange" onclick="playSound('beep')">📁 DASHBOARD SFILE</a>
@@ -86,13 +111,25 @@
   </div>
 
 <script>
-  let soundActive = false;
+  let soundActive = false; let percent = 0;
   
+  // LOADING BAR
+  const loadInterval = setInterval(()=>{
+    percent += 4;
+    document.getElementById('percent').innerText = percent + '%';
+    if(percent >= 100){
+      clearInterval(loadInterval);
+      document.getElementById('loader').style.display = 'none';
+      document.getElementById('main').style.display = 'block';
+      document.getElementById('breach').style.display = 'block';
+      setTimeout(()=>{document.getElementById('breach').style.display = 'none'}, 2000);
+    }
+  }, 25);
+
   // AKTIFKAN SUARA PAS TAP PERTAMA
   document.body.addEventListener('click', () => {
     if(!soundActive){
       document.getElementById('access').play().catch(()=>{});
-      document.getElementById('notif').style.display = 'none';
       soundActive = true;
     }
   }, {once: true});
